@@ -1,18 +1,17 @@
 #include <QApplication>
 #include <QWidget>
 
+#include "interpreter_window.h"
+
 int main(int argc, char* argv[]) {
 
-    // Каждое Qt5-приложение (за исключением консольных) должно включать следующую строку
     QApplication app(argc, argv);
 
-    // Главный виджет, который представляет окно нашей программы
-    QWidget window;
+    InterpreterWindow window;
 
-    window.resize(250, 150); // изменяем размер виджета в пикселях
-    window.setWindowTitle("Simple example"); // устанавливаем заголовок для главного окна 
-    window.show(); // выводим виджет на экран
+    window.resize(900, 600); 
+    window.setWindowTitle("Interpreter"); 
+    window.show(); 
 
-    // С помощью метода exec() запускаем основной цикл нашей программы
     return app.exec();
 }
