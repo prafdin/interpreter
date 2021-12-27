@@ -90,7 +90,7 @@ void Interpret(InterpreterWindow& window) {
 				break;
 			case OUT:
 				char buf[50];
-				sprintf(buf, "%d", PopVal());
+				sprintf(buf, "%zu", PopVal());
 				window.PrintMsg(QString(buf));
 				++cur_indx;
 				break;
@@ -126,7 +126,7 @@ void Interpret(InterpreterWindow& window) {
 void PushElem(PostfixElem el) {
 	st.push(el);
 }
-int PopVal() {
+size_t PopVal() {
 	PostfixElem el = st.top();
 	st.pop();
 
@@ -134,7 +134,10 @@ int PopVal() {
 		return GetConst(el.index);
 	}
 	else if (el.type == ElemType::elVar) {
-		return GetVar(el.index).value;
+		Var var = GetVar(el.index);
+		if (!var.initialized)
+			throw std::logic_error(std::string("Var ") + var.var + std::string(" not initialized"));
+		return var.value;
 	}
 	else if (el.type == ElemType::elCmdPtr) {
 		return el.index;
@@ -144,8 +147,9 @@ int PopVal() {
 	}
 }
 
-void SetVarAndPop(int val) {
+void SetVarAndPop(size_t val) {
 	PostfixElem el = st.top();
 	st.pop();
+	GetVar(el.index).initialized = true;
 	GetVar(el.index).value = val;
 }

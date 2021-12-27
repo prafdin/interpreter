@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <stdexcept>
+#include <limits>
 
 #include <QListWidget>
 #include <QToolBar>
@@ -71,6 +72,7 @@ void InterpreterWindow::interpret() {
 	std::string str = textInput->toPlainText().toStdString();
 	if (!lex_parse(str.c_str())) {
 		print_err(str);
+		CleanLexems();
 		return;
 	}
 	if (!Operators()) {
@@ -97,9 +99,9 @@ void InterpreterWindow::PrintMsg(QString& str) {
 	textOutput->append(str);
 }
 
-int InterpreterWindow::ScanNum() {
-	int num = QInputDialog::getInt(this, "Enter number",
-		"Enter value for variable");
+size_t InterpreterWindow::ScanNum() {
+	size_t num = QInputDialog::getInt(this, "Enter number",
+		"Enter value for variable", 0,0,std::numeric_limits<size_t>::max());
 	return num;
 }
 

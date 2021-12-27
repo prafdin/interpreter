@@ -12,13 +12,14 @@ struct PostfixElem {
 
 struct Var {
 	std::string var;
-	int value;
+	size_t value;
+	bool initialized;
 };
 
-int SetConst(int constant);
+int SetConst(size_t constant);
 
 int CurrentPtr();
-int GetConst(int ind);
+size_t GetConst(int ind);
 Var& GetVar(int ind);
 Cmd GetCmd(int ind);
 PostfixElem GetElem(int ind);

@@ -13,7 +13,7 @@ class InterpreterWindow : public QWidget {
 public:
     InterpreterWindow(QWidget* parent = 0);
 	void PrintMsg(QString& str);
-	int ScanNum();
+	size_t ScanNum();
 
 private slots:
 	void interpret();

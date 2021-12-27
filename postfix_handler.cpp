@@ -27,9 +27,9 @@ void CleanPostfix()
 
 static vector<Cmd> cmd_v;
 static vector<Var> var_v;
-static vector<int> const_v;
+static vector<size_t> const_v;
 
-int SetConst(int constant)
+int SetConst(size_t constant)
 {
 	auto it = find_if(const_v.begin(), const_v.end(), [constant](int c) { return c == constant; });
 	int ind;
@@ -47,7 +47,7 @@ int CurrentPtr(){
 	return v.size();
 }
 
-int GetConst(int ind) {
+size_t GetConst(int ind) {
 	return const_v[ind];
 }
 
@@ -88,7 +88,7 @@ int WriteVar(string var){
 	}
 	else {
 		ind = var_v.size();
-		var_v.push_back(Var{ var,ind });
+		var_v.push_back(Var{ var,0,false });
 	}
 	int pn_index = v.size();
 	v.push_back(PostfixElem{ ElemType::elVar, ind });
