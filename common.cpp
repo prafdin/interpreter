@@ -2,7 +2,7 @@
 
 #include "common.h"
 
-static int error_pos;
+static int error_pos = -1;
 static std::string error_msg;
 
 void set_error_pos(int pos) {

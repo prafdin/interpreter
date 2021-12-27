@@ -45,7 +45,7 @@ bool lex_parse(const char* str) {
 	const char* lex_start = str;
 	const char* cur_pos = str;
 	bool add = true;
-	while (st != E && st != F) {
+	while (st != E && st != F && *lex_start != 0) {
 		add = true;
 		prev_st = st;
 		switch (st)
@@ -229,6 +229,9 @@ bool lex_parse(const char* str) {
 			else if (*cur_pos == ')') {
 				st = rBr;
 			}
+			else if (check_Ar(*cur_pos)) {
+				st = Ar;
+			}
 			else if (*cur_pos == 0) {
 				st = F;
 			}
@@ -297,3 +300,8 @@ Lexem show_next_lexem() {
 	return lexems.front();
 }
 
+void CleanLexems() {
+	while (lexems_exist()) {
+		get_lexem();
+	}
+}

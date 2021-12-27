@@ -23,3 +23,5 @@ bool lexems_exist();
 Lexem get_lexem();
 
 Lexem show_next_lexem();
+
+void CleanLexems();

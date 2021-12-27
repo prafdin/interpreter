@@ -76,6 +76,7 @@ void InterpreterWindow::interpret() {
 	if (!Operators()) {
 		print_err(str);
 		CleanPostfix();
+		CleanLexems();
 		return;
 	}
 	try {
@@ -105,6 +106,11 @@ int InterpreterWindow::ScanNum() {
 void InterpreterWindow::print_err(std:: string str) {
 	int len = strlen(str.c_str());
 	int err_pos = get_error_pos();
+	if (err_pos == -1) {
+		textOutput->append(str.c_str());
+		textOutput->append(get_error_msg().c_str());
+		return;
+	}
 	char before_err[255];
 	memset(before_err, 0, 255);
 	memcpy(before_err, str.c_str(), err_pos);

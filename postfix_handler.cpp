@@ -2,6 +2,7 @@
 #include <string>
 #include <iostream>
 #include <algorithm>
+#include <cmath>
 
 #include "postfix_handler.h"
 

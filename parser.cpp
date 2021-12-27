@@ -101,6 +101,7 @@ bool Operand() {
 		set_error_msg("Expected a identificator or constant");
 		return false;
 	}
+	
 }
 
 bool Operators() {
@@ -121,17 +122,21 @@ bool Operators2() { // the same operators*
 }
 
 bool Operator() {
+	if (!lexems_exist()) {
+		set_error_msg("Any operator expected");
+		return false;
+	}
 	Lexem l = get_lexem();
 	switch (l.type)
 	{
 	case LexemType::_ind:
 		WriteVar(l.lex);
-		l = get_lexem();
-		if (!(l.lex == "=")) {
+		if (!lexems_exist() || !(show_next_lexem().lex == "=") ) {
 			set_error_pos(l.pos);
-			set_error_msg("Expected a assign statement");
+			set_error_msg("Expected a assign statement after variable");
 			return false;
 		}
+		l = get_lexem();
 		if (!ArithExp())
 			return false;
 		WriteCmd(Cmd::SET);
