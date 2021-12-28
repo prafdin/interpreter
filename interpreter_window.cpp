@@ -29,6 +29,10 @@
 #include "interpreter.h"
 #include "common.h"
 
+
+
+
+
 InterpreterWindow::InterpreterWindow(QWidget* parent) : QWidget(parent)  {
 	QGridLayout* grid = new QGridLayout(this);
 
@@ -100,9 +104,15 @@ void InterpreterWindow::PrintMsg(QString& str) {
 }
 
 size_t InterpreterWindow::ScanNum() {
-	size_t num = QInputDialog::getInt(this, "Enter number",
-		"Enter value for variable", 0,0,std::numeric_limits<size_t>::max());
-	return num;
+	QString num = QInputDialog::getText(this, "Enter number",
+		"Enter value for variable");
+
+	while (![](std::string str) {return std::all_of(str.begin(), str.end(), std::isdigit); }(num.toStdString())) {
+		num = QInputDialog::getText(this, "Enter number",
+			"Enter value for variable");
+	}
+
+	return std::stoull(num.toStdString());
 }
 
 void InterpreterWindow::print_err(std:: string str) {
